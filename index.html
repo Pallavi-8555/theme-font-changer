@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Theme and Font Size Changer</title>
+  <style>
+
+    body {
+      background-color: white;
+      color: black;
+      font-size: 16px;
+      transition: background-color 0.5s, color 0.5s, font-size 0.3s;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .dark {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Change Theme and Font Size</h1>
+
+  <!-- Theme buttons -->
+  <button id="lightBtn">Light Mode</button>
+  <button id="darkBtn">Dark Mode</button>
+
+  <br />
+
+  <!-- Font size buttons -->
+  <button id="smallBtn">Small Font</button>
+  <button id="mediumBtn">Medium Font</button>
+  <button id="largeBtn">Large Font</button>
+
+  <p id="info">Current theme: Light | Font size: Medium</p>
+
+  <script>
+    const body = document.body;
+    const info = document.getElementById('info');
+
+    // Theme buttons
+    document.getElementById('lightBtn').onclick = function() {
+      body.classList.remove('dark');
+      updateInfo('Light', getCurrentFontSize());
+    };
+    document.getElementById('darkBtn').onclick = function() {
+      body.classList.add('dark');
+      updateInfo('Dark', getCurrentFontSize());
+    };
+
+    // Font size buttons
+    document.getElementById('smallBtn').onclick = function() {
+      body.style.fontSize = '14px';
+      updateInfo(getCurrentTheme(), 'Small');
+    };
+    document.getElementById('mediumBtn').onclick = function() {
+      body.style.fontSize = '18px';
+      updateInfo(getCurrentTheme(), 'Medium');
+    };
+    document.getElementById('largeBtn').onclick = function() {
+      body.style.fontSize = '22px';
+      updateInfo(getCurrentTheme(), 'Large');
+    };
+
+    function updateInfo(theme, fontSize) {
+      info.textContent = `Current theme: ${theme} | Font size: ${fontSize}`;
+    }
+
+    function getCurrentTheme() {
+      return body.classList.contains('dark') ? 'Dark' : 'Light';
+    }
+
+    function getCurrentFontSize() {
+      const size = window.getComputedStyle(body).fontSize;
+      if(size === '14px') return 'Small';
+      if(size === '22px') return 'Large';
+      return 'Medium';
+    }
+  </script>
+</body>
+</html>
